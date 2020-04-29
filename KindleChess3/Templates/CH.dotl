@@ -1,0 +1,20 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Chapter {{chno}} - {{ nm }}</title>
+  <link rel="stylesheet" href="book.css" type="text/css" />
+</head>
+
+<body>
+  <div>
+    <h2>
+      <b>CHAPTER {{chno}}
+        <br />{{ nm }}</b>
+    </h2>
+
+{{ gmtxt }}
+
+  </div>
+</body>
+
+</html>
