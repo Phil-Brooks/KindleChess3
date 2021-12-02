@@ -114,7 +114,6 @@
     <Compile Include="Game.fs" />
     <Compile Include="MoveUtil.fs" />
     <Compile Include="RegParse.fs" />
-    <Compile Include="Games.fs" />
     <Compile Include="PgnWriter.fs" />
     <Compile Include="Stockfish.fs" />
     <Compile Include="FsChess.fs" />

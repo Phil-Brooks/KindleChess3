@@ -20,13 +20,13 @@ module Chap =
     ///get - renames a chapter
     let get nm fol = 
         let fn = Path.Combine(fol,nm + ".pgn")
-        let gms = fn|>Games.ReadListFromFile
-        gms.Head
+        let gm = fn|>Game.ReadFromFile
+        gm
 
     ///save - saves a chapter
     let save nm fol (ch:Game) = 
         let fn = Path.Combine(fol,nm + ".pgn")
-        [ch]|>Games.WriteFile fn
+        ch|>Game.WriteFile fn
 
     ///del - deletes a chapter
     let del nm fol = 
