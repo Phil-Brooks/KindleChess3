@@ -5,7 +5,6 @@ open DotLiquid
 open Microsoft.FSharp.Reflection
 open FSharp.Markdown
 open FsChess
-open FsChess.Pgn
 
 module Chap =
     
@@ -20,13 +19,13 @@ module Chap =
     ///get - renames a chapter
     let get nm fol = 
         let fn = Path.Combine(fol,nm + ".pgn")
-        let gm = fn|>Game.ReadFromFile
+        let gm = fn|>IO.ReadFromFile
         gm
 
     ///save - saves a chapter
     let save nm fol (ch:Game) = 
         let fn = Path.Combine(fol,nm + ".pgn")
-        ch|>Game.WriteFile fn
+        ch|>IO.WriteFile fn
 
     ///del - deletes a chapter
     let del nm fol = 

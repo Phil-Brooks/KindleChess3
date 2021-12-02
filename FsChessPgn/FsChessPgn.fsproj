@@ -100,7 +100,6 @@
     <Compile Include="GameResult.fs" />
     <Compile Include="DateUtil.fs" />
     <Compile Include="NagUtil.fs" />
-    <Compile Include="Stats.fs" />
     <Compile Include="Bitboard.fs" />
     <Compile Include="Attacks.fs" />
     <Compile Include="FEN.fs" />
@@ -117,7 +116,6 @@
     <Compile Include="PgnWriter.fs" />
     <Compile Include="Stockfish.fs" />
     <Compile Include="FsChess.fs" />
-    <Compile Include="FsChess.Pgn.fs" />
   </ItemGroup>
 
   <ItemGroup>
