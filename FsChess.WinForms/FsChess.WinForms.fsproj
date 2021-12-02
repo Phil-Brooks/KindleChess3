@@ -46,12 +46,9 @@
     <EmbeddedResource Include="Images\WhitePawn.png" />
     <EmbeddedResource Include="Images\WhiteQueen.png" />
     <EmbeddedResource Include="Images\WhiteRook.png" />
-    <Compile Include="DgvGames.fs" />
     <Compile Include="PnlBoard.fs" />
     <Compile Include="WbPgn.fs" />
-    <Compile Include="WbStats.fs" />
     <Compile Include="LinkBrdPgn.fs" />
-    <Compile Include="LinkAll.fs" />
   </ItemGroup>
 
   <ItemGroup>
