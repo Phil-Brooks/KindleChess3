@@ -68,9 +68,3 @@ module MoveUtil =
                     else Some(fromfile),Some(fromrank)
             let mt = if iscap then MoveType.Capture else MoveType.Simple
             pMove.CreateAll(mt,sTo,Some(pct),uf,ur,(if isprom then Some(ptprom) else None),ischk,false,ismt)
-
-    ///Get an encoded move from a SAN Move(move) such as Nf3 for this Board(bd)
-    let fromSAN (bd : Brd) (move : string) = 
-        let pmv = move|>pMove.Parse
-        let mv = pmv|>pMove.ToMove bd
-        mv

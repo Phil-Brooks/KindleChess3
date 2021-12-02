@@ -85,9 +85,6 @@ module Move =
     ///Get the promoted PieceType for an encoded Move
     let PromPcTp = FsChessPgn.Move.PromoteType
 
-    ///Get an encoded move from a SAN string such as Nf3 for this Board
-    let FromSan = FsChessPgn.MoveUtil.fromSAN
-
     ///Get the pMove for a move for this board
     let TopMove = FsChessPgn.MoveUtil.topMove
 
