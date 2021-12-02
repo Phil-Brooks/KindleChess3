@@ -1,4 +1,4 @@
-﻿namespace FsChessPgn
+namespace FsChessPgn
 
 open FsChess
 open System.IO
