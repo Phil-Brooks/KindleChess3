@@ -309,7 +309,7 @@ module Library2 =
             let delrav(e) =
                 game <- Game.DeleteRav game rirs
                 pgn.DocumentText <- mvtags()
-
+            
             let m = new ContextMenuStrip()
             //do edit comm before
             let adb =
@@ -336,6 +336,7 @@ module Library2 =
                 new ToolStripMenuItem(Text = "Delete Variation")
             dlr.Click.Add(delrav)
             m.Items.Add(dlr) |> ignore
+
             m
 
         let cmctxmnu = 
