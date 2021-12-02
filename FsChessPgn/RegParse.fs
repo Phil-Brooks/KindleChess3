@@ -150,6 +150,22 @@ module RegParse =
                       yield gm
           }
     
+    let ReadFromStream(stream : Stream) = 
+        let sr = new StreamReader(stream)
+        let db = AllGamesRdr(sr)
+        db
+
+    let ReadSeqFromFile(file : string) = 
+        let stream = new FileStream(file, FileMode.Open)
+        let db = ReadFromStream(stream)
+        db
+
+    let ReadFromFile(file : string) = 
+        let stream = new FileStream(file, FileMode.Open)
+        let result = ReadFromStream(stream) |> Seq.toList
+        stream.Close()
+        result
+
     let ReadGame(file : string) = 
         let stream = new FileStream(file, FileMode.Open)
         let sr = new StreamReader(stream)
