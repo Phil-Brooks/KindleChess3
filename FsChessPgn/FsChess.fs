@@ -53,9 +53,6 @@ module Board =
     ///Make an encoded Move for this Board and return the new Board
     let Push = FsChessPgn.Board.MoveApply
 
-    ///Make a SAN Move such as Nf3 for this Board and return the new Board
-    let PushSAN = FsChessPgn.MoveUtil.ApplySAN
-
     ///Is there a check on the Board
     let IsCheck = FsChessPgn.Board.IsChk
     
@@ -91,28 +88,13 @@ module Move =
     ///Get an encoded move from a SAN string such as Nf3 for this Board
     let FromSan = FsChessPgn.MoveUtil.fromSAN
 
-    ///Get an encoded move from a UCI string such as g1f3 for this Board
-    let FromUci = FsChessPgn.MoveUtil.fromUci
-
-    ///Get the UCI string such as g1f3 for a move
-    let ToUci = FsChessPgn.MoveUtil.toUci
-
     ///Get the pMove for a move for this board
     let TopMove = FsChessPgn.MoveUtil.topMove
-
-    ///Get the SAN string such as Nf3 for a move for this board
-    let ToSan = FsChessPgn.MoveUtil.toPgn
 
 module Game =
 
     ///The starting Game with no moves
     let Start = FsChessPgn.Game.Start
-
-    ///Make a SAN Move such as Nf3 for this Game and return the new Game
-    let PushSAN = FsChessPgn.Game.AddSan
-
-    ///Pops a move of the end for this Game and return the new Game
-    let Pop = FsChessPgn.Game.RemoveMoveEntry
 
     ///Gets a single move as a string given one of the list from Game.MoveText
     let MoveStr = FsChessPgn.PgnWrite.MoveTextEntryStr

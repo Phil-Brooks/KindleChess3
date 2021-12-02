@@ -6,24 +6,6 @@ module Game =
 
     let Start = GameEMP
 
-    let MoveCount(mtel:MoveTextEntry list) =
-        let mc(mte:MoveTextEntry) =
-            match mte with
-            |HalfMoveEntry(_) -> 1
-            |_ -> 0
-        if mtel.IsEmpty then 0
-        else
-            mtel|>List.map mc|>List.reduce(+)
-        
-    let FullMoveCount(mtel:MoveTextEntry list) = MoveCount(mtel)/2
-
-    let GetMoves(mtel:MoveTextEntry list) =
-        let gm(mte:MoveTextEntry) =
-            match mte with
-            |HalfMoveEntry(_,_,mv,_) -> [mv]
-            |_ -> []
-        mtel|>List.map gm|>List.concat
-    
     let AddTag (tagstr:string) (gm:Game) =
         let k,v = tagstr.Trim().Split([|'"'|])|>Array.map(fun s -> s.Trim())|>fun a -> a.[0],a.[1].Trim('"')
         match k with
@@ -42,40 +24,6 @@ module Game =
         | _ ->
             {gm with AdditionalInfo=gm.AdditionalInfo.Add(k,v)}
     
-    let AddMoveEntry (mte:MoveTextEntry) (gm:Game) =
-        {gm with MoveText=gm.MoveText@[mte]}
-
-    let RemoveMoveEntry (gm:Game) =
-        let mtel = gm.MoveText
-        let nmtel =
-            if mtel.IsEmpty then mtel
-            else
-                mtel|>List.rev|>List.tail|>List.rev
-        {gm with MoveText=nmtel}
-
-    let AddpMove (pmv:pMove) (gm:Game) =
-        let mtel = gm.MoveText
-        let mc = mtel|>MoveCount
-        let mn = if mc%2=0 then Some(mc/2+1) else None
-        let mte = HalfMoveEntry(mn,false,pmv,None)
-        gm|>AddMoveEntry mte
-            
-    let AddSan (san:string) (gm:Game) =
-        let pmv = san|>pMove.Parse
-        gm|>AddpMove pmv
-     
-    let pretty(gm:Game) = 
-        let mtel = gm.MoveText
-        if mtel.IsEmpty then "No moves"
-        elif mtel.Length<6 then
-            let mvstr =mtel|>List.map PgnWrite.MoveTextEntryStr|>List.reduce(fun a b -> a + " " + b)
-            "moves: " + mvstr
-        else
-            let rl = mtel|>List.rev
-            let l5 = rl.[0..4]|>List.rev
-            let mvstr = l5|>List.map PgnWrite.MoveTextEntryStr|>List.reduce(fun a b -> a + " " + b)
-            "moves: ..." + mvstr
-   
     let SetaMoves(gm:Game) =
         let rec setamv (pmvl:MoveTextEntry list) mct prebd bd opmvl =
             if pmvl|>List.isEmpty then opmvl|>List.rev
@@ -605,50 +553,3 @@ module Game =
             let nmtel = getnmtel irs gm.MoveText
             {gm with MoveText=nmtel}
 
-    let GetBoard (bd:Brd) (indx:int,gm:Game) =
-        let rec getbd cbd (ipmvl:pMove list) =
-            if ipmvl.IsEmpty then false,""
-            else
-                let pmv = ipmvl.Head
-                let mv = pmv|>pMove.ToMove cbd
-                //now check if a pawn move which is not on search board
-                let pc = mv|>Move.MovingPiece
-                if pc=Piece.WPawn then
-                    let sq = mv|>Move.From
-                    let rnk = sq|>Square.ToRank
-                    if rnk=Rank2 && bd.[sq]=Piece.WPawn then false,""
-                    else
-                        let nbd = cbd|>Board.MoveApply mv
-                        if nbd.PieceAt=bd.PieceAt then
-                            if ipmvl.Tail.IsEmpty then false,""
-                            else
-                                let npmv = ipmvl.Tail.Head
-                                let mvstr = npmv|>PgnWrite.MoveStr
-                                true,mvstr
-                        else getbd nbd ipmvl.Tail
-                elif pc=Piece.BPawn then
-                    let sq = mv|>Move.From
-                    let rnk = sq|>Square.ToRank
-                    if rnk=Rank7 && bd.[sq]=Piece.BPawn then false,""
-                    else
-                        let nbd = cbd|>Board.MoveApply mv
-                        if nbd.PieceAt=bd.PieceAt then
-                            if ipmvl.Tail.IsEmpty then false,""
-                            else
-                                let npmv = ipmvl.Tail.Head
-                                let mvstr = npmv|>PgnWrite.MoveStr
-                                true,mvstr
-                        else getbd nbd ipmvl.Tail
-                else
-                    let nbd = cbd|>Board.MoveApply mv
-                    if nbd.PieceAt=bd.PieceAt then
-                        if ipmvl.Tail.IsEmpty then false,""
-                        else
-                            let npmv = ipmvl.Tail.Head
-                            let mvstr = npmv|>PgnWrite.MoveStr
-                            true,mvstr
-                    else getbd nbd ipmvl.Tail
-        
-        let initbd = if gm.BoardSetup.IsSome then gm.BoardSetup.Value else Board.Start
-        let fnd,mvstr = getbd initbd (gm.MoveText|>GetMoves)
-        if fnd then Some(indx,gm,mvstr) else None
