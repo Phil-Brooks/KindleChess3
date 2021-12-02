@@ -71,7 +71,7 @@ module Board =
     ///The Squares that attack the specified Square by the specified Player for this Board
     let SquareAttackers = FsChessPgn.Board.SquareAttacksTo
 
-    ///Creates a PNG image ith specified name, flipped if specified for the given Board 
+    ///Creates a PNG image with specified name, flipped if specified for the given Board 
     let ToPng = FsChessPgn.Png.BoardToPng
 
     ///Prints an ASCII version of this Board 
@@ -167,19 +167,6 @@ module Game =
 
     //Deletes a comment in the Game at the address provided
     let DeleteComment = FsChessPgn.Game.DeleteComment
-
-module Stockfish =
-
-    ///Get best move for current Board and move number
-    let GetBestMove = FsChessPgn.Stockfish.GetBestMove
-
-
-module Pretty =
-
-    let Square = FsChessPgn.Square.Name
-    let Move = FsChessPgn.MoveUtil.toUci
-    let Board = FsChessPgn.Board.ToStr
-    let Game = FsChessPgn.Game.pretty
 
 module IO =
 
