@@ -142,6 +142,14 @@ module RegParse =
         let gm = getgm Unknown "" GameEMP
         gm
     
+    let AllGamesRdr(sr : System.IO.StreamReader) = 
+          seq { 
+              while not sr.EndOfStream do
+                  let gm = NextGameRdr(sr)
+                  if gm<>GameEMP then
+                      yield gm
+          }
+    
     let ReadGame(file : string) = 
         let stream = new FileStream(file, FileMode.Open)
         let sr = new StreamReader(stream)
